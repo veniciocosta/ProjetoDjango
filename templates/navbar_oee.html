@@ -1,0 +1,53 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid flex flex-nowrap">
+    <a class="navbar-brand flex flex-nowrap items-center" href="#">
+        <img src="{% static 'imagens/oee.png' %}" alt="" width="30" height="24">
+        <p class="px-2">Site OEE</p>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Apontamentos
+          </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" href="#">Ocorrências</a></li>
+                <li><a class="dropdown-item" href="#">Produção</a></li>
+                <li><a class="dropdown-item" href="#">Perdas e defeitos</a></li>
+                <li><a class="dropdown-item" href="#">Programação</a></li>
+              </ul>
+        </li>
+
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown2" role="button"
+                 data-bs-toggle="dropdown" aria-expanded="false">
+                Cadastros
+              </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown2">
+                    <li><a class="dropdown-item" href="#">Horas calendário</a></li>
+                    <li><a class="dropdown-item" href="#">Capacidades</a></li>
+                    <li><a class="dropdown-item" href="#">Metas</a></li>
+                    <li><a class="dropdown-item" href="#">Listas</a></li>
+                  </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown3" role="button"
+                 data-bs-toggle="dropdown" aria-expanded="false">
+                Gestão
+              </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown3">
+                    <li><a class="dropdown-item" href="#">Dashboard OEE</a></li>
+                    <li><a class="dropdown-item" href="#">Disponibilidade</a></li>
+                    <li><a class="dropdown-item" href="#">Performance</a></li>
+                    <li><a class="dropdown-item" href="#">Qualidade</a></li>
+                  </ul>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
