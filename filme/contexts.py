@@ -7,4 +7,8 @@ def lista_filmes_recentes(request):
 
 def lista_filmes_em_alta(request):
     lista_filmes = Filme.objects.all().order_by("-visualizaoes")[0:5]
-    return {"lista_filmes_em_alta": lista_filmes}
+    if lista_filmes:
+        filme_destaque = lista_filmes[0] # primeiro item -> filme com mais visualizações
+    else:
+        filme_destaque = None
+    return {"lista_filmes_em_alta": lista_filmes, "filme_destaque": filme_destaque}

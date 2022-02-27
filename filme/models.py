@@ -1,5 +1,11 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
+
+# Poderíamos criar um app de usuários e conectar no settings, e gerenciar por lá, mas o Lira preferiu importar no app
+# ... filmes. De ambas as formas é necessário criar uma classe usuario e incluir os campos extras que não estão no
+# ... usuário padrão do django
+
 # Create your models here.
 
 
@@ -31,3 +37,6 @@ class Episodio(models.Model):
         return self.filme.titulo + " | " + self.titulo
 
 # criar o usuário
+class Usuario(AbstractUser):
+    # username, nome, email.. já tem no usuário padrão do django
+    filmes_vistos = models.ManyToManyField("Filme") # muitos para muitos, Classe="Filme",

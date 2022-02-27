@@ -43,3 +43,17 @@ class Detalhesfilme(DetailView):
         # filmes_relacionados = Filme.objects.filter(categoria=self.object().categoria)[0:3] # pegar apenas 3 filmes
         context['filmes_relacionados'] = filmes_relacionados
         return context
+
+class PesquisaFilme(ListView):
+    template_name = "pesquisa.html"
+    model = Filme  # mudar model para episódios, caso queira pesquisar por episódios
+
+    def get_queryset(self):
+        termo_de_pesquisa = self.request.GET.get('texto_pesquisado')
+        # editar object_list antes de passar pra página
+        if termo_de_pesquisa:
+            object_list = self.model.objects.filter(titulo__icontains=termo_de_pesquisa) # __icontains -> filtrar coluna
+            return object_list
+        else:
+            object_list = self.model.objects.all()
+            return object_list
