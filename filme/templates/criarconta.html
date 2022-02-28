@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block titulo %}
-Login
+Criar conta
 {% endblock %}
 
 {% block content %}
@@ -12,15 +12,12 @@ Login
             <form method="post">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Faça Login para continuar</legend>
-                    {{ form|crispy }}
+                    <legend class="border-bottom mb-4">Crie uma conta para continuar</legend>
+                    {{form|crispy}}
                 </fieldset>
-                <button class="bg-red-600 py-1 my-2 px-3 w-full text-white md:text-lg rounded-md" type="submit">Fazer Login</button>
+                <button class="bg-red-600 py-1 px-3 text-white w-full md:text-lg rounded-md" type="submit">Criar Conta</button>
             </form>
-            <small>
-                Não tem uma conta ainda? <p><a href="{% url 'filme:criarconta' %}">Clique aqui para criar uma
-                conta</a></p>
-            </small>
+
         </div>
     </header>
 
