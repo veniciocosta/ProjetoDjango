@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, reverse
-from .models import Filme
-from django.views.generic import TemplateView, ListView, DetailView, FormView
+from .models import Filme, Usuario
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CrarContaForm
+from .forms import CriarContaForm, HomepageForm
 
 
 # PARA CADA PÁGINA: url, view e um tamplate
@@ -10,13 +10,23 @@ from .forms import CrarContaForm
 # def homepage(request):
 # return render(request, 'homepage.html')
 
-class Homepage(TemplateView):
+class Homepage(FormView):
     template_name = 'homepage.html'
+    form_class = HomepageForm
+
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated: # se usuário está autenticado...
             return redirect("filme:homefilmes")# redireciona para a view homefilmes do app filme
         else:
             return super().get(request, *args, **kwargs) # redireciona para a homepage
+
+    def get_success_url(self):
+        email = self.request.POST.get('email')
+        usuarios = Usuario.objects.filter(email=email)
+        if usuarios:
+            return reverse('filme:login')
+        else:
+            return reverse('filme:criarconta')
 
 # sempre incluir como primeiro parâmetro para bloquear páginas com obrigatoriedade de login -> LoginRequiredMixin
 class Homefilmes(LoginRequiredMixin, ListView):
@@ -61,12 +71,17 @@ class PesquisaFilme(LoginRequiredMixin, ListView):
             object_list = self.model.objects.all()
             return object_list
 
-class Paginaperfil(LoginRequiredMixin, TemplateView):
+class Paginaperfil(LoginRequiredMixin, UpdateView):
     template_name = 'editarperfil.html'
+    model = Usuario
+    fields = ['first_name', 'last_name', 'email']
+
+    def get_success_url(self):
+        return reverse('filme:homefilmes')
 
 class Criarconta(FormView):
     template_name = 'criarconta.html'
-    form_class = CrarContaForm
+    form_class = CriarContaForm
 
     def form_valid(self, form):
         form.save()

@@ -16,6 +16,7 @@ LISTA_CATEGORIAS = ( #(armazenar_no_bd, aparecer_para_usuário)
     ("APRESENTACAO", "Apresentação"),
     ("OUTROS", "Outros"),
 ) # tupla de tuplas
+
 class Filme(models.Model):
     titulo = models.CharField(max_length=100)
     thumb = models.ImageField(upload_to='thumb_filmes')
