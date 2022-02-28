@@ -60,3 +60,6 @@ class PesquisaFilme(LoginRequiredMixin, ListView):
         else:
             object_list = self.model.objects.all()
             return object_list
+
+class Paginaperfil(LoginRequiredMixin, TemplateView):
+    template_name = 'editarperfil.html'
