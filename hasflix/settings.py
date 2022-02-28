@@ -132,3 +132,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# link que o cara será redirecionado quando fizer login
+LOGIN_REDIRECT_URL = 'filme:homefilmes'
+
+# link onde o usuário faz login
+LOGIN_URL = 'filme:login'

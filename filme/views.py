@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 from .models import Filme
 from django.views.generic import TemplateView, ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 # PARA CADA PÁGINA: url, view e um tamplate
@@ -10,19 +12,18 @@ from django.views.generic import TemplateView, ListView, DetailView
 
 class Homepage(TemplateView):
     template_name = 'homepage.html'
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated: # se usuário está autenticado...
+            return redirect("filme:homefilmes")# redireciona para a view homefilmes do app filme
+        else:
+            return super().get(request, *args, **kwargs) # redireciona para a homepage
 
-
-# def homefilmes(request):
-# context = {}
-# context['lista_filmes'] = Filme.objects.all()
-# return render(request, 'homefilmes.html', context)
-
-class Homefilmes(ListView):
+# sempre incluir como primeiro parâmetro para bloquear páginas com obrigatoriedade de login -> LoginRequiredMixin
+class Homefilmes(LoginRequiredMixin, ListView):
     template_name = "homefilmes.html"
     model = Filme  # object_list será passado para o html. Lista de objetos.
 
-
-class Detalhesfilme(DetailView):
+class Detalhesfilme(LoginRequiredMixin, DetailView):
     template_name = "detalhesfilme.html"
     model = Filme  # object -> será passado para o html. Passa 1 object para lá
 
@@ -33,6 +34,8 @@ class Detalhesfilme(DetailView):
         # somar 1 na coluna vizualizaoes e salvar
         filme.visualizaoes += 1
         filme.save()
+        usuario = request.user
+        usuario.filmes_vistos.add(filme)
         # return -> redireciona o usuário para o a url final
         return super(Detalhesfilme, self).get(request, *args, **kwargs)
 
@@ -44,7 +47,7 @@ class Detalhesfilme(DetailView):
         context['filmes_relacionados'] = filmes_relacionados
         return context
 
-class PesquisaFilme(ListView):
+class PesquisaFilme(LoginRequiredMixin, ListView):
     template_name = "pesquisa.html"
     model = Filme  # mudar model para episódios, caso queira pesquisar por episódios
 
