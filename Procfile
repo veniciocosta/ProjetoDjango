@@ -1,0 +1,1 @@
+web: gunicorn hasflix.wsgi --log-file -

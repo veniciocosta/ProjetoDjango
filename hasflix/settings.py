@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-06n_$k=&#!yg-1l(9si1k&0nnpzh(vscvnj)@)(!rejjc^2*!!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False # garante que as pessoas não rodem códigos no seu site. Pode deixar true no pc, mas nao no heroku
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'django-hashflix.herokuapp.com']
 
 
 # Application definition
